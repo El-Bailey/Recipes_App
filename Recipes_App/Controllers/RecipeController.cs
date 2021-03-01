@@ -108,30 +108,6 @@ namespace Recipes_App.Controllers
             return View(recipeViewModel);
         }
 
-        //// POST: Recipe/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Details(int id, [Bind("pkid,Title,Recipe")] RecipeViewModel recipeViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
-        //        {
-        //            sqlConnection.Open();
-        //            SqlCommand sqlCommand = new SqlCommand("RecipeEdit", sqlConnection);
-        //            sqlCommand.CommandType = CommandType.StoredProcedure;
-        //            sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
-        //            sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
-        //            sqlCommand.Parameters.AddWithValue("Recipe", recipeViewModel.Recipe);
-        //            sqlCommand.ExecuteNonQuery();
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View();
-        //}
-
         // GET: Recipe/Delete/5
         public IActionResult Delete(int? id)
         {
