@@ -46,7 +46,7 @@ namespace Recipes_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Title,Recipe")] RecipeViewModel recipeViewModel)
+        public IActionResult Create([Bind("Title,Ingredients,Instructions")] RecipeViewModel recipeViewModel)
         {
             //RecipeViewModel recipeViewModel = new RecipeViewModel();
             if (ModelState.IsValid)
@@ -58,7 +58,8 @@ namespace Recipes_App.Controllers
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     //sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
                     sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
-                    sqlCommand.Parameters.AddWithValue("Recipe", recipeViewModel.Recipe);
+                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients);
+                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions);
                     sqlCommand.ExecuteNonQuery();
                 }
                 return RedirectToAction(nameof(Index));
@@ -79,7 +80,7 @@ namespace Recipes_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("pkid,Title,Recipe")] RecipeViewModel recipeViewModel)
+        public IActionResult Edit(int id, [Bind("pkid,Title,Ingredients,Instructions")] RecipeViewModel recipeViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +91,8 @@ namespace Recipes_App.Controllers
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
                     sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
-                    sqlCommand.Parameters.AddWithValue("Recipe", recipeViewModel.Recipe);
+                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients);
+                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions);
                     sqlCommand.ExecuteNonQuery();
                 }
                 return RedirectToAction(nameof(Index));
@@ -169,7 +171,8 @@ namespace Recipes_App.Controllers
                 {
                     recipeViewModel.pkid = int.Parse(dt.Rows[0]["pkid"].ToString());
                     recipeViewModel.Title = dt.Rows[0].Field<string>("Title");
-                    recipeViewModel.Recipe = dt.Rows[0].Field<string>("Recipe");
+                    recipeViewModel.Ingredients = dt.Rows[0].Field<string>("Ingredients");
+                    recipeViewModel.Instructions = dt.Rows[0].Field<string>("Instructions");
                 }
                 return recipeViewModel;
             }
