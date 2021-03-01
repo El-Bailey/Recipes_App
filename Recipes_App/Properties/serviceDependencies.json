@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "Recipes_App_ASPNET_CoreContext"
+    }
+  }
+}
