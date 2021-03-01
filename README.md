@@ -11,7 +11,7 @@ Visual Studio 2019 ASP.NET 3.1 MVC App (no Entity Framework dependency) to Creat
   <li>Open SQL_Setup.sql</li>
   <li>Execute the script. (Some blocks may need to run separately.)</li>
   <li>Once the database is created, the table is created, and the stored procedures are created..</li>
-  <li>Open the project in Visual Studio 2019</li>
+  <li>Open the project in Visual Studio 2019.</li>
   <li>Resolve any dependencies by downloading the necessary NuGet packages.</li>
   <li>Run the project</li>
   <li>Keep track of your recipes!</li>
