@@ -1,7 +1,7 @@
 ﻿@model System.Data.DataTable
 
 @{
-    ViewData["Title"] = "Recipes";
+    ViewData["Title"] = "All Recipes";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,32 +13,34 @@
     <thead>
         <tr>
             <th>
-                Title
+                Click on a recipe to view details.
             </th>
-            <th>
-                Recipe
-            </th>
+            @*<th>
+            Recipe
+        </th>
             <th>
                 Actions
             </th>
+            *@
         </tr>
     </thead>
     <tbody>
         @for (int i = 0; i < Model.Rows.Count; i++)
         {
-            <tr>
-                <td>
-                    @Model.Rows[i]["Title"]
-                </td>
-                <td>
-                    @Model.Rows[i]["Recipe"]
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@Model.Rows[i]["pkid"]">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@Model.Rows[i]["pkid"]">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@Model.Rows[i]["pkid"]">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@Model.Rows[i]["pkid"]">@Model.Rows[i]["Title"]</a>
+                @*@Model.Rows[i]["Title"]*@
+            </td>
+            @*<td>
+            @Model.Rows[i]["Recipe"]
+        </td>*@
+            @*    <td>
+            <a asp-action="Edit" asp-route-id="@Model.Rows[i]["pkid"]">Edit</a> |
+            <a asp-action="Details" asp-route-id="@Model.Rows[i]["pkid"]">Details</a> |
+            <a asp-action="Delete" asp-route-id="@Model.Rows[i]["pkid"]">Delete</a>
+        </td>*@
+        </tr>
+            }
+</tbody>
 </table>

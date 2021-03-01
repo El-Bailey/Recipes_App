@@ -13,6 +13,8 @@ namespace Recipes_App.Models
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Recipe { get; set; }
+        public string Ingredients { get; set; }
+        [Required]
+        public string Instructions { get; set; }
     }
 }
