@@ -58,8 +58,8 @@ namespace Recipes_App.Controllers
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     //sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
                     sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
-                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients);
-                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions);
+                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients.Trim());
+                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions.Trim());
                     sqlCommand.ExecuteNonQuery();
                 }
                 return RedirectToAction(nameof(Index));
@@ -91,8 +91,8 @@ namespace Recipes_App.Controllers
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
                     sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
-                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients);
-                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions);
+                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients.Trim());
+                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions.Trim());
                     sqlCommand.ExecuteNonQuery();
                 }
                 return RedirectToAction(nameof(Index));
