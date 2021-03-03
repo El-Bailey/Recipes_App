@@ -1,0 +1,38 @@
+﻿@model Recipes_App.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login To View Recipes</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User_Password" class="control-label"></label>
+                <input asp-for="User_Password" class="form-control" />
+                <span asp-validation-for="User_Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+            <p><strong>@ViewData["Message"]</strong></p>
+        </form>
+    </div>
+</div>
+
+<div>
+    <p>Not a Recipes User? <a asp-controller="UserRegistration" asp-action="Create">Sign Me Up!</a></p>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

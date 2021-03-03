@@ -82,7 +82,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER PROCEDURE [Recipes].[dbo].[RecipeViewAll]
+CREATE PROCEDURE [Recipes].[dbo].[RecipeViewAll]
 
 AS
 BEGIN

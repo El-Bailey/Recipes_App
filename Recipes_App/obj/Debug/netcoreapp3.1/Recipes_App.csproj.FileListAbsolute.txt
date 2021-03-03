@@ -119,3 +119,8 @@ C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Recip
 C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Recipes_App.dll
 C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Recipes_App.pdb
 C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Recipes_App.genruntimeconfig.cache
+C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Razor\Views\UserRegistration\Create.cshtml.g.cs
+C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Razor\Views\UserRegistration\Index.cshtml.g.cs
+C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Razor\Views\UserRegistration\Login.cshtml.g.cs
+C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Razor\Views\Login\Login.cshtml.g.cs
+C:\Users\Levi\source\repos\Recipes_App\Recipes_App\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
