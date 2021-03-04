@@ -1,5 +1,5 @@
 -- Create Recipes DB
---CREATE DATABASE Recipes;
+CREATE DATABASE Recipes;
 
 ----------------------------------------------------------------
 -- Create Recipes Table
