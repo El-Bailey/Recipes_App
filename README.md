@@ -20,9 +20,9 @@ Visual Studio 2019 ASP.NET 3.1 MVC App (no Entity Framework dependency) to Creat
   <li>Keep track of your recipes!</li>
 <br><br>
 <h2>Upcoming Enhancements</h2>
--Testing
--Allow users to update passwords
--Allow users to reset passwords
+-Testing<br>
+-Allow users to update passwords<br>
+-Allow users to reset passwords<br>
 -Ownership of Recipes<br>
 -Break out individual ingredients and their measurements in the database and in the forms.<br>
 -UI Improvements<br>
