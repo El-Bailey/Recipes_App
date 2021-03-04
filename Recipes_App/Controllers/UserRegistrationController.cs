@@ -51,6 +51,9 @@ namespace Recipes_App.Controllers
                 }
                 else
                 {
+                    // Get password hash for User_Password
+                    string passwordHash = PasswordEncryptionUsingRFC2898.GetPasswordHash(userRegistrationModel.User_Password);
+                    
                     // Add user to database.
                     using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
                     {
@@ -59,7 +62,8 @@ namespace Recipes_App.Controllers
                         sqlCommand.CommandType = CommandType.StoredProcedure;
                         sqlCommand.Parameters.AddWithValue("Username", userRegistrationModel.Username);
                         sqlCommand.Parameters.AddWithValue("User_Email", userRegistrationModel.User_Email);
-                        sqlCommand.Parameters.AddWithValue("User_Password", userRegistrationModel.User_Password.Trim());
+                        //sqlCommand.Parameters.AddWithValue("User_Password", userRegistrationModel.User_Password.Trim());
+                        sqlCommand.Parameters.AddWithValue("User_Password", passwordHash);
                         int rowsAffected = sqlCommand.ExecuteNonQuery();
 
                         if (rowsAffected > 0)
