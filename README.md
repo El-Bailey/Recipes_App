@@ -14,9 +14,9 @@ Visual Studio 2019 ASP.NET 3.1 MVC App (no Entity Framework dependency) to Creat
   <li>Open the project in Visual Studio 2019.</li>
   <li>Resolve any dependencies by downloading the necessary NuGet packages.</li>
   <li>Update the connection string in appsettings.json to reflect your connection to the server on which you created the database.</li>
-  <li>Run the project</li>
-  <li>Register to create user account</li>
-  <li>Login</li>
+  <li>Run the project.</li>
+  <li>Register to create user account.</li>
+  <li>Enter your credentials on the Login page.</li>
   <li>Keep track of your recipes!</li>
 <br><br>
 <h2>Upcoming Enhancements</h2>
