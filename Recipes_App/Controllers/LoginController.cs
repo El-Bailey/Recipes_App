@@ -12,6 +12,7 @@ namespace Recipes_App.Controllers
 {
     public class LoginController : Controller
     {
+        // Connection String is stored in appsettings.json
         private readonly IConfiguration _configuration;
         public LoginController(IConfiguration configuration)
         {
@@ -59,7 +60,7 @@ namespace Recipes_App.Controllers
                     if (PasswordEncryptionUsingRFC2898.CheckPassword(loginViewModel.User_Password, passwordHash))
                     {
                         // Credentials matched.
-                        // Add key to Session to flag user as logged in.
+                        // Add key value pair to Session to flag user as logged in.
                         HttpContext.Session.Set("LoggedIn", new byte[] { 0x1 });
 
                         // Redirect to All Recipes List
@@ -72,7 +73,7 @@ namespace Recipes_App.Controllers
                 }
                 else
                 {
-                    ViewData["Message"] = "Error occured when checking credentials.";
+                    ViewData["Message"] = "Invalid Credentials.";
                 }
             }
 

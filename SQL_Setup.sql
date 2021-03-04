@@ -1,5 +1,5 @@
 -- Create Recipes DB
-CREATE DATABASE Recipes;
+--CREATE DATABASE Recipes;
 
 ----------------------------------------------------------------
 -- Create Recipes Table
@@ -8,13 +8,63 @@ CREATE TABLE [Recipes].[dbo].[Recipes] (
     Title VARCHAR(50),
     Ingredients VARCHAR(4000),
     Instructions VARCHAR(4000)
-);
+)
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+-- Create RecipeUsers Table
+CREATE TABLE [Recipes].[dbo].[RecipesUsers] (
+    pkid INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Username VARCHAR(50),
+    User_Email VARCHAR(254),
+    User_Password VARCHAR(1000)
+)
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+-- Create UserCreate
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[RecipesUserCreate]
+	--@pkid INT,
+	@Username VARCHAR(50),
+	@User_Email VARCHAR(254),
+	@User_Password VARCHAR(1000)
+AS
+BEGIN
+	INSERT INTO RecipesUsers(Username,User_Email,User_Password)
+	--VALUES(@Title,@Ingredients,@Instructions)
+	VALUES(@Username,@User_Email,@User_Password)
+END
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+-- CREATE FetchRecipesUserByUsername
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[FetchRecipesUserByUsername]
+	--@pkid INT,
+	@Username VARCHAR(50)
+AS
+BEGIN
+	Select * 
+	FROM RecipesUsers
+	WHERE Username = @Username
+END
+----------------------------------------------------------------
+
 
 ----------------------------------------------------------------
 -- Create RecipeCreate
-USE [Recipes]
-GO
-/****** Object:  StoredProcedure [dbo].[RecipeCreate]    Script Date: 3/1/2021 01:23:07 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31,12 +81,11 @@ BEGIN
 	--VALUES(@Title,@Ingredients,@Instructions)
 	VALUES(LTRIM(RTRIM(@Title)),LTRIM(RTRIM(@Ingredients)),LTRIM(RTRIM(@Instructions)))
 END
+----------------------------------------------------------------
+
 
 ----------------------------------------------------------------
 -- Create RecipeDeleteByPkid 
-USE [Recipes]
-GO
-/****** Object:  StoredProcedure [dbo].[RecipeDeleteByPkid]    Script Date: 3/1/2021 01:24:04 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -49,11 +98,11 @@ BEGIN
 	DELETE FROM Recipes -- May need to be delete * from
 	WHERE pkid=@pkid
 END
+----------------------------------------------------------------
 
 
 ----------------------------------------------------------------
 -- CREATE RecipeEdit
-/****** Object:  StoredProcedure [dbo].[RecipeEdit]    Script Date: 3/1/2021 01:28:20 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -73,6 +122,7 @@ BEGIN
 		Instructions=@Instructions
 	WHERE pkid=@pkid
 END
+----------------------------------------------------------------
 
 
 ----------------------------------------------------------------
@@ -82,23 +132,23 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [Recipes].[dbo].[RecipeViewAll]
+CREATE PROCEDURE [dbo].[RecipeViewAll]
 
 AS
 BEGIN
 	SELECT * FROM Recipes
 END
+----------------------------------------------------------------
 
 
 ----------------------------------------------------------------
 -- Create RecipeViewByPkid
-/****** Object:  StoredProcedure [dbo].[RecipeViewByPkid]    Script Date: 3/1/2021 01:32:38 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [Recipes].[dbo].[RecipeViewByPkid]
+CREATE PROCEDURE [dbo].[RecipeViewByPkid]
 	@pkid INT
 AS
 BEGIN
@@ -106,3 +156,4 @@ BEGIN
 	FROM Recipes
 	WHERE pkid=@pkid
 END
+----------------------------------------------------------------

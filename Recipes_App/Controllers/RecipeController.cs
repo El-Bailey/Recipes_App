@@ -14,6 +14,7 @@ namespace Recipes_App.Controllers
 {
     public class RecipeController : Controller
     {
+        // Connection String is stored in appsettings.json
         private readonly IConfiguration _configuration;
         public RecipeController(IConfiguration configuration)
         {

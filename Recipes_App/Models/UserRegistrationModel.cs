@@ -16,7 +16,10 @@ namespace Recipes_App.Models
         public string Username { get; set; }
 
         [Display(Name = "Email")]
+        [Required(ErrorMessage = "Password cannot be blank.")]
+        [StringLength(254, ErrorMessage = "Email Address is limited to 254 characters.")]
         public string User_Email { get; set; }
+        
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Password cannot be blank.")]

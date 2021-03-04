@@ -12,6 +12,7 @@ namespace Recipes_App.Controllers
 {
     public class UserRegistrationController : Controller
     {
+        // Connection String is stored in appsettings.json
         private readonly IConfiguration _configuration;
         public UserRegistrationController(IConfiguration configuration)
         {
@@ -76,7 +77,6 @@ namespace Recipes_App.Controllers
                         }
                     }
                 }
-                //return RedirectToAction(nameof(Index));
             }
             
             return View(userRegistrationModel);
