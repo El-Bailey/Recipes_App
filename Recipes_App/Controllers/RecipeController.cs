@@ -23,22 +23,37 @@ namespace Recipes_App.Controllers
         // GET: Recipe
         public IActionResult Index()
         {
-            var dt = new DataTable();
-            using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
             {
-                sqlConnection.Open();
-                SqlDataAdapter da = new SqlDataAdapter("RecipeViewAll", sqlConnection);
-                da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                da.Fill(dt);
+                return RedirectToAction("Login", "Login");
             }
-            return View(dt);
+            else 
+            {
+                var dt = new DataTable();
+                using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
+                {
+                    sqlConnection.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("RecipeViewAll", sqlConnection);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.Fill(dt);
+                }
+                return View(dt);
+            }
+            
         }
 
 
         // GET: Recipe/Create
         public IActionResult Create()
         {
-            return View();
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: Recipe/Create
@@ -48,31 +63,45 @@ namespace Recipes_App.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Title,Ingredients,Instructions")] RecipeViewModel recipeViewModel)
         {
-            //RecipeViewModel recipeViewModel = new RecipeViewModel();
-            if (ModelState.IsValid)
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
             {
-                using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
-                {
-                    sqlConnection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("RecipeCreate", sqlConnection);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    //sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
-                    sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
-                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients.Trim());
-                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions.Trim());
-                    sqlCommand.ExecuteNonQuery();
-                }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login", "Login");
             }
-            return View(recipeViewModel);
+            else
+            {
+                //RecipeViewModel recipeViewModel = new RecipeViewModel();
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
+                    {
+                        sqlConnection.Open();
+                        SqlCommand sqlCommand = new SqlCommand("RecipeCreate", sqlConnection);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        //sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
+                        sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
+                        sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients.Trim());
+                        sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions.Trim());
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(recipeViewModel);
+            }
         }
 
         // GET: Recipe/Edit/5
         public IActionResult Edit(int? id)
         {
-            RecipeViewModel recipeViewModel = new RecipeViewModel();
-            recipeViewModel = FetchRecipeByPkid(id);
-            return View(recipeViewModel);
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                RecipeViewModel recipeViewModel = new RecipeViewModel();
+                recipeViewModel = FetchRecipeByPkid(id);
+                return View(recipeViewModel);
+            }
         }
 
         // POST: Recipe/Edit/5
@@ -82,37 +111,58 @@ namespace Recipes_App.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("pkid,Title,Ingredients,Instructions")] RecipeViewModel recipeViewModel)
         {
-            if (ModelState.IsValid)
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
             {
-                using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
-                {
-                    sqlConnection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("RecipeEdit", sqlConnection);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
-                    sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
-                    sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients.Trim());
-                    sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions.Trim());
-                    sqlCommand.ExecuteNonQuery();
-                }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login", "Login");
             }
-            return View();
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
+                    {
+                        sqlConnection.Open();
+                        SqlCommand sqlCommand = new SqlCommand("RecipeEdit", sqlConnection);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.AddWithValue("pkid", recipeViewModel.pkid);
+                        sqlCommand.Parameters.AddWithValue("Title", recipeViewModel.Title);
+                        sqlCommand.Parameters.AddWithValue("Ingredients", recipeViewModel.Ingredients.Trim());
+                        sqlCommand.Parameters.AddWithValue("Instructions", recipeViewModel.Instructions.Trim());
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
+            }
         }
 
         // GET: Recipe/Details/5
         public IActionResult Details(int? id)
         {
-            RecipeViewModel recipeViewModel = new RecipeViewModel();
-            recipeViewModel = FetchRecipeByPkid(id);
-            return View(recipeViewModel);
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                RecipeViewModel recipeViewModel = new RecipeViewModel();
+                recipeViewModel = FetchRecipeByPkid(id);
+                return View(recipeViewModel);
+            }
         }
 
         // GET: Recipe/Delete/5
         public IActionResult Delete(int? id)
         {
-            RecipeViewModel recipeViewModel = FetchRecipeByPkid(id);
-            return View(recipeViewModel);
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                RecipeViewModel recipeViewModel = FetchRecipeByPkid(id);
+                return View(recipeViewModel);
+            }
         }
 
         // POST: Recipe/Delete/5
@@ -120,15 +170,22 @@ namespace Recipes_App.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
+            if (!HttpContext.Session.Keys.Contains("LoggedIn"))
             {
-                sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand("RecipeDeleteByPkid", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("pkid", id);
-                sqlCommand.ExecuteNonQuery();
+                return RedirectToAction("Login", "Login");
             }
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("RecipeDeleteByPkid", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("pkid", id);
+                    sqlCommand.ExecuteNonQuery();
+                }
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         [NonAction]

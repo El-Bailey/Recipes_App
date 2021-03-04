@@ -23,6 +23,17 @@ namespace Recipes_App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Cache to store session cookie.
+            services.AddDistributedMemoryCache();
+
+            // Session to track whether user is logged in.
+            services.AddSession(options => 
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(1800); // Session dies after 30 minutes with no http requests.
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddControllersWithViews();
             //services.AddMvc().AddRazorPagesOptions(options =>
             //{
@@ -48,14 +59,20 @@ namespace Recipes_App
 
             app.UseRouting();
 
+            app.UseAuthentication(); // May not need this.
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     //pattern: "{controller=Home}/{action=Index}/{id?}");
-                    pattern: "{controller=Recipe}/{action=Index}/{id?}");
+                    //pattern: "{controller=Recipe}/{action=Index}/{id?}");
+                    //pattern: "{controller=UserRegistration}/{action=Create}/{id?}");
+                    //pattern: "{controller=UserRegistration}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Login}/{id?}");
             });
         }
     }
