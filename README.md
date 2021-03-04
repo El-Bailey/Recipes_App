@@ -1,5 +1,5 @@
 # Recipes_App
-Visual Studio 2019 ASP.NET 3.1 MVC App (no Entity Framework dependency) to Create, View, Edit, and Delete Recipes in SQL Server DB
+Visual Studio 2019 ASP.NET 3.1 MVC App (no Entity Framework dependency) to Create, View, Edit, and Delete Recipes in SQL Server DB. Project also includes User Registration, Login, Logout, and Password hashing using RFC2898.
 
 <h3>Dependencies</h3>
 <ul><li>Visual Studio 2019</li>
@@ -15,10 +15,14 @@ Visual Studio 2019 ASP.NET 3.1 MVC App (no Entity Framework dependency) to Creat
   <li>Resolve any dependencies by downloading the necessary NuGet packages.</li>
   <li>Update the connection string in appsettings.json to reflect your connection to the server on which you created the database.</li>
   <li>Run the project</li>
+  <li>Register to create user account</li>
+  <li>Login</li>
   <li>Keep track of your recipes!</li>
 <br><br>
 <h2>Upcoming Enhancements</h2>
--Authentication<br>
+-Testing
+-Allow users to update passwords
+-Allow users to reset passwords
 -Ownership of Recipes<br>
 -Break out individual ingredients and their measurements in the database and in the forms.<br>
 -UI Improvements<br>
