@@ -42,36 +42,33 @@ namespace Recipes_App.Controllers
             {
                 var dt = new DataTable();
 
-                // Check database to see if credentials match.
+                // Check database to see if username already exists.
                 using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("LocalhostConnection")))
                 {
                     sqlConnection.Open();
-                    SqlDataAdapter da = new SqlDataAdapter("CheckRecipesUserCredentials", sqlConnection);
+                    SqlDataAdapter da = new SqlDataAdapter("FetchRecipesUserByUsername", sqlConnection);
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand.Parameters.AddWithValue("Username", loginViewModel.Username);
-                    da.SelectCommand.Parameters.AddWithValue("User_Password", loginViewModel.User_Password);
                     da.Fill(dt);
                 }
 
                 if (dt.Rows.Count > 0)
                 {
-                    int.TryParse(dt.Rows[0][0].ToString(), out int pkid);
-                    // Check whether credentials matched.
-                    if (pkid > 0)
+                    string passwordHash = dt.Rows[0]["User_Password"].ToString();
+
+                    if (PasswordEncryptionUsingRFC2898.CheckPassword(loginViewModel.User_Password, passwordHash))
                     {
                         // Credentials matched.
                         // Add key to Session to flag user as logged in.
                         HttpContext.Session.Set("LoggedIn", new byte[] { 0x1 });
-                        
+
                         // Redirect to All Recipes List
                         return RedirectToAction("Index", "Recipe");
-                        // redirect to recipe list here
                     }
-                    else //(dt.Rows[0].Field<int>("pkid") == -1)
+                    else
                     {
-                        ViewData["Message"] = "Invalid Credentials";
+                        ViewData["Message"] = "Password Incorrect";
                     }
-
                 }
                 else
                 {

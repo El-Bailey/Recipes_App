@@ -21,6 +21,7 @@ namespace Recipes_App.Models
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Password cannot be blank.")]
         [DataType(DataType.Password)]
+        [StringLength(256, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long.")]
         public string User_Password { get; set; }
 
         [Display(Name = "Confirm Password")]
