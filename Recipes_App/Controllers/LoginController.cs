@@ -17,6 +17,7 @@ namespace Recipes_App.Controllers
         {
             this._configuration = configuration;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -76,10 +77,8 @@ namespace Recipes_App.Controllers
                 {
                     ViewData["Message"] = "Error occured when checking credentials.";
                 }
-                //return RedirectToAction(nameof(Index));
             }
 
-            //return View();
             return View(loginViewModel);
         }
     }
