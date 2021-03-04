@@ -27,6 +27,13 @@ namespace Recipes_App.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("LoggedIn");
+
+            return RedirectToAction("Login");
+        }
+
         [HttpPost]
         public IActionResult Login([Bind("Username,User_Password")] LoginViewModel loginViewModel)
         {
@@ -48,11 +55,14 @@ namespace Recipes_App.Controllers
                 if (dt.Rows.Count > 0)
                 {
                     int.TryParse(dt.Rows[0][0].ToString(), out int pkid);
-                    // Check whether credentials matched
+                    // Check whether credentials matched.
                     if (pkid > 0)
                     {
-                        // Credentials matched
-                        ViewData["Message"] = "Login Successful!";
+                        // Credentials matched.
+                        // Add key to Session to flag user as logged in.
+                        HttpContext.Session.Set("LoggedIn", new byte[] { 0x1 });
+                        
+                        // Redirect to All Recipes List
                         return RedirectToAction("Index", "Recipe");
                         // redirect to recipe list here
                     }
@@ -71,8 +81,6 @@ namespace Recipes_App.Controllers
 
             //return View();
             return View(loginViewModel);
-            //return RedirectToAction("Index","Recipe");
-            //return View(new RecipeViewModel );
         }
     }
 }

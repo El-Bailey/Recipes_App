@@ -29,7 +29,7 @@ namespace Recipes_App
             // Session to track whether user is logged in.
             services.AddSession(options => 
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(30); // Short value for testing. Change this later.
+                options.IdleTimeout = TimeSpan.FromSeconds(1800); // Session dies after 30 minutes with no http requests.
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
